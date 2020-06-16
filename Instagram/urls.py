@@ -16,8 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
-from Instagram.views import Home
+from Instagram.views import Home, PostListView, PostDetailView
 
 urlpatterns = [
-    path('', Home.as_view(), name='home')
+    path('', Home.as_view(), name='home'),
+    path('posts/', PostListView.as_view(), name='posts'),
+    path('post/<int:pk>/', PostDetailView.as_view(), name='post'),
 ]
