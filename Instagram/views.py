@@ -6,6 +6,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from Instagram.models import Post
+from Instagram.forms import CustomUserCreationForm
 
 # Create your views here.
 class Home(TemplateView):
@@ -36,6 +37,6 @@ class PostDeleteView(DeleteView):
     success_url = reverse_lazy('posts')
 
 class SignUpView(CreateView):
-    form_class = UserCreationForm
+    form_class = CustomUserCreationForm
     template_name = 'sign_up.html'
     success_url = reverse_lazy('login')
