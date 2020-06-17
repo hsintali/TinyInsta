@@ -1,0 +1,7 @@
+<span>Delete Post</span>
+
+<form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <p> Are you sure to delete "{{post.title}}" ? </p>
+    <button type="submit">Delete</button>
+</form>
