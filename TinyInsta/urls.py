@@ -16,7 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
+from Instagram.views import SignUpView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('instagram/', include('Instagram.urls')),
+    path('auth/', include('django.contrib.auth.urls')),
+    path('auth/signup/', SignUpView.as_view(), name='sign_up'),
 ]
