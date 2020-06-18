@@ -1,18 +1,43 @@
 {% extends "base.html" %}
 
-{% load static %}
+{% comment %} {% load custom_tags %} {% endcomment %}
 
 {% block content %}
 
-<div>
-    <a href="{% url 'post_new' %}">New Post</a>
-</div>
-
-<div>
+<div class="cards-listing">
     {% for post in object_list %}
-        <a href="{% url 'post' post.id%}">
-            <img src="/{{post.image}}" width=200 height=200>
-        </a>
+        <div class="row">
+            <div class="card view-update {{ post.pk }}">
+                <div class="card__panel-head">
+                    <div class="poster__info">
+                        <a href="{% url 'home' %}" class="poster__name">
+                            {% if post.author.profile_picture %}
+                                <img class="poster__profilepic" src="/{{ post.author.profile_picture }}">
+                            {% endif %}
+                            {{ post.author.username }}
+                        </a>
+                        <span class="poster__timestamp">
+                            {{ post.posted_on|timesince }}
+                        </span>
+                    </div>
+                </div>
+
+                <a href="{% url 'post' post.id %}">
+                    <img class="card__main-image" src="/{{ post.image }}">
+                </a>
+
+                <div class="card__panel-body">
+                    <div class="likes">
+                        {% if post.get_like_count %}
+                            {{ post.get_like_count }} like{% if post.get_like_count > 1 %}s{% endif %}
+                        {% endif %}
+                    </div>
+                    <section class="input-row">
+                        <i class="fa fa-heart-o submit-like" aria-hidden="true"></i>
+                    </section>
+                </div>
+            </div>
+        </div>
     {% endfor %}
 </div>
 
