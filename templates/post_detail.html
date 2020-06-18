@@ -2,13 +2,34 @@
 
 {% block content %}
 
-<h1> {{object.title}} </h1>
-
-<div>
-    <img src="/{{object.image}}">
-    <div>
-        <a href="{% url 'post_update' post.id %}">Edit</a>
-        <a href="{% url 'post_delete' post.id %}">Delete</a>
+<div class="row single-post">
+    <div class="single-post-card view-update {{ object.pk }}">
+        <div class="header">
+            <a href="{% url 'home' %}">
+                {% if object.author.profile_pic %}
+                    <img class="picture-circle--medium" src="/{{object.author.profile_picture}}">
+                {% endif %}
+                {{ object.author.username }}
+            </a>
+        </div>
+        <div class="image__wrapper">
+            <img class="card__main-image" src="/{{object.image.url}}" width='1000', height='1000'>
+        </div>
+        <div class="comments-portion">
+            <div class="likes-timestamp-row">
+                <div class="likes">
+                    {% if object.get_like_count %}
+                        {{ object.get_like_count }} like{% if object.get_like_count > 1 %}s{% endif %}
+                    {% endif %}
+                </div>
+                <div class="timestamp">
+                    {{ object.posted_on|timesince }}
+                </div>
+            </div>
+            <section class="input-row">
+                <i class="fa fa-heart-o submit-like" aria-hidden="true"></i>
+            </section>
+        </div>
     </div>
 </div>
 
