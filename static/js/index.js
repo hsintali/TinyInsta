@@ -52,3 +52,52 @@ function like_update_view(data) {
 $('.submit-like').on('click', function() {
     create_like.call(this, like_update_view, error_cb);
 });
+
+/* Follow/Unfollow */
+function follow_user(success_cb, error_cb, type) {
+  var follow_user_pk = $(this).attr('id');
+  console.log(follow_user_pk);
+
+  $.ajax({
+    type: "POST",
+    url: '/instagram/togglefollow/',
+    data: {
+      follow_user_pk: follow_user_pk,
+      type: type
+    },
+    success: function(data) { success_cb(data); },
+    error: function(error) { error_cb(error); }
+  });
+}
+
+function update_follow_view(data) {
+  console.log('calling update_follow_view');
+  console.log('data',data);
+  var $button = $('.follow-toggle__container .btn');
+  $button.addClass('unfollow-user').removeClass('follow-user');
+  $button.text('Unfollow');
+
+  var $span = $('.follower_count');
+  var span_text = parseInt(document.getElementById("follower_id").innerText);
+  $span.text(span_text + 1);
+}
+
+function update_unfollow_view(data) {
+  console.log('calling update_unfollow_view');
+  console.log('data',data);
+  var $button = $('.follow-toggle__container .btn');
+  $button.addClass('follow-user').removeClass('unfollow-user');
+  $button.text('Follow');
+
+  var $span = $('.follower_count');
+  var span_text = parseInt(document.getElementById("follower_id").innerText);
+  $span.text(span_text - 1);
+}
+
+$('.follow-toggle__container').on('click', '.follow-user', function() {
+  follow_user.call(this, update_follow_view, error_cb, 'follow');
+});
+
+$('.follow-toggle__container').on('click', '.unfollow-user', function() {
+  follow_user.call(this, update_unfollow_view, error_cb, 'unfollow');
+});

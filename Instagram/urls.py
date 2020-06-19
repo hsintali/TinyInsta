@@ -18,14 +18,17 @@ from django.urls import include, path
 
 from Instagram.views import (Home, PostListView, PostDetailView,
                              PostCreateView, PostUpdateView, PostDeleteView,
-                             AddLike)
+                             AddLike, UserDetailView, UserHomeView, ToggleFollow)
 
 urlpatterns = [
-    path('', Home.as_view(), name='home'),
-    path('posts/', PostListView.as_view(), name='posts'),
+    path('test/', Home.as_view(), name='test'),
+    path('allposts/', PostListView.as_view(), name='allposts'),
     path('post/<int:pk>/', PostDetailView.as_view(), name='post'),
     path('post/new/', PostCreateView.as_view(), name='post_new'),
     path('post/update/<int:pk>/', PostUpdateView.as_view(), name='post_update'),
     path('post/delete/<int:pk>/', PostDeleteView.as_view(), name='post_delete'),
     path('like/', AddLike, name='addlike'),
+    path('togglefollow/', ToggleFollow, name='togglefollow'),
+    path('', UserHomeView.as_view(), name='home'),
+    path('user/<int:pk>/', UserDetailView.as_view(), name='user'),
 ]
