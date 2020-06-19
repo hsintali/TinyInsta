@@ -45,8 +45,8 @@ class Post(models.Model):
         upload_to = 'static/images/posts',
         format = 'jpeg',
         options = {'quality': 100},
-        blank = True,
-        null = True,
+        blank = False,
+        null = False,
     )
     posted_on = models.DateTimeField(
         auto_now_add = True,

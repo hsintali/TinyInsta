@@ -41,8 +41,11 @@ class UserDetailView(DetailView):
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     template_name = 'post_create.html'
-    fields = '__all__'
+    fields = ['title', 'image']
     login_url = 'login'
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
 
 class PostUpdateView(UpdateView):
     model = Post
