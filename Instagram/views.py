@@ -12,7 +12,7 @@ from Instagram.forms import CustomUserCreationForm
 
 # Create your views here.
 class Home(TemplateView):
-    template_name = 'index.html'
+    template_name = 'test.html'
 
 class PostListView(ListView):
     model = Post
